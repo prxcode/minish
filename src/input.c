@@ -1,3 +1,5 @@
+//main code
+
 #include "minish.h"
 #include <stdio.h>
 
@@ -7,8 +9,7 @@ void shell_interactive(void){
 	size_t len = 0;
 	ssize_t read;
 
-	while (1)
-	{
+	while (1){
 		printf("minish$ ");
 
 		read = getline(&line, &len, stdin);
@@ -18,13 +19,11 @@ void shell_interactive(void){
 
 		if (strcmp(line, "exit\n") == 0)
 			break;
+		execute_command(line);
 	}
 
 	free(line);
 }
-
-
-
 
 
 void shell_no_interactive(void){ 
@@ -33,10 +32,10 @@ void shell_no_interactive(void){
 	size_t len = 0;
 	ssize_t read;
 
-	while ((read = getline(&line, &len, stdin)) != -1)
-	{
+	while ((read = getline(&line, &len, stdin)) != -1){
 		if (strcmp(line, "exit\n") == 0)
 			break;
+        execute_command(line);
 	}
 
 	free(line);

@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pedantic
 NAME = minish
-SRC = src/main.c src/input.c
+SRC = src/main.c src/input.c src/executor.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
