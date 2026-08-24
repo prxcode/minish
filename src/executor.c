@@ -5,63 +5,18 @@
 
 void execute_command(char *line){ //execute a command entered by the user
 	char *args[64];
-	char *token;
 	char *input_file = NULL;
 	char *output_file = NULL;
 	char *append_file = NULL;
-	int argc = 0;
+	int argc;
 	int fd;
 	pid_t pid;
 	int status;
 
-	token = strtok(line, " \n");
+	argc = parse_command(line, args);
 
-	while (token != NULL && argc < 63){
-		if (strcmp(token,"<")==0){
-			token = strtok(NULL, " \n");
-			
-			if (token == NULL){
-				fprintf(stderr, "minish: missing input file\n");
-				return;
-			}
-
-			input_file = token;
-		}
-
-		else if (strcmp(token, ">") == 0){
-			token = strtok(NULL, " \n");
-
-			if (token == NULL){
-				fprintf(stderr, "minish: missing output file\n");
-				return;
-			}
-
-			output_file = token;
-		}
-		
-		else if (strcmp(token, ">>") == 0){
-			token = strtok(NULL, " \n");
-
-			if (token == NULL){
-				fprintf(stderr, "minish: missing output file\n");
-				return;
-			}
-
-			append_file = token;
-		}
-
-		else{
-			args[argc] = token;
-			argc++;
-		}
-		
-		token = strtok(NULL, " \n");
-	}
-
-	args[argc] = NULL;
-
-	if (argc == 0)
-		return;
+	if (argc <= 0)
+    	return;
 
 	if (handle_builtin(args))
 		return;

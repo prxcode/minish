@@ -14,6 +14,8 @@
 #include <signal.h>
 #include <errno.h>
 
+#define MAX_ARGS 64
+
 //inputhandling
 void shell_interactive(void);
 void shell_no_interactive(void);
@@ -26,5 +28,8 @@ void setup_signals(void);
 int builtin_cd(char **args);
 int builtin_env(void);
 int handle_builtin(char **args);
+
+int parse_command(char *line, char **args);
+char *expand_variable(char *token);
 
 #endif
