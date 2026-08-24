@@ -1,9 +1,9 @@
-//execute a command entered by the user
+//parses commands and runs external programs
 
 #include "minish.h"
 
 
-void execute_command(char *line){
+void execute_command(char *line){ //execute a command entered by the user
 	char *args[64];
 	char *token;
 	int argc = 0;
@@ -12,7 +12,7 @@ void execute_command(char *line){
 
 	token = strtok(line, " \n");
 
-	while (token != NULL && argc <63){
+	while (token != NULL && argc < 63){
 		args[argc] = token;
 		argc++;
 		token = strtok(NULL, " \n");
@@ -20,9 +20,12 @@ void execute_command(char *line){
 
 	args[argc] = NULL;
 
-	if (argc == 0){
+	if (argc == 0)
 		return;
-	}
+
+	if (handle_builtin(args))
+		return;
+
 	pid = fork();
 
 	if (pid == -1){
@@ -32,6 +35,7 @@ void execute_command(char *line){
 
 	if (pid == 0){
 		execvp(args[0], args);
+
 		perror("minish");
 		exit(EXIT_FAILURE);
 	}

@@ -1,4 +1,4 @@
-//main code
+//reads user input and passes commands for execution
 
 #include "minish.h"
 #include <stdio.h>
@@ -17,8 +17,6 @@ void shell_interactive(void){
 		if (read == -1)
 			break;
 
-		if (strcmp(line, "exit\n") == 0)
-			break;
 		execute_command(line);
 	}
 
@@ -33,9 +31,7 @@ void shell_no_interactive(void){
 	ssize_t read;
 
 	while ((read = getline(&line, &len, stdin)) != -1){
-		if (strcmp(line, "exit\n") == 0)
-			break;
-        execute_command(line);
+		execute_command(line);
 	}
 
 	free(line);

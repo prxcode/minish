@@ -1,3 +1,5 @@
+//starts minish and selects interactive or non-interactive mode
+
 #include "minish.h" 
 
 int main(void)
