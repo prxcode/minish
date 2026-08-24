@@ -15,9 +15,12 @@ void shell_interactive(void){
 		read = getline(&line, &len, stdin);
 
 		if (read == -1)
-			break;
+        break;
 
-		execute_command(line);
+		if (strchr(line, '|') != NULL)
+			execute_pipeline(line);
+		else
+			execute_command(line);
 	}
 
 	free(line);
@@ -31,7 +34,16 @@ void shell_no_interactive(void){
 	ssize_t read;
 
 	while ((read = getline(&line, &len, stdin)) != -1){
-		execute_command(line);
+		printf("minish$ ");
+        read = getline(&line, &len, stdin);
+
+        if (read == -1)
+            break;
+
+		if (strchr(line, '|') != NULL)
+			execute_pipeline(line);
+		else
+			execute_command(line);
 	}
 
 	free(line);
