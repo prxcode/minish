@@ -59,6 +59,9 @@ void execute_pipeline(char *line){ //execute commands connected by pipes
 		}
 
 		if (pid == 0){
+            signal(SIGINT, SIG_DFL);
+	        signal(SIGQUIT, SIG_DFL);
+
 			if (prev_fd != -1){
 				if (dup2(prev_fd, STDIN_FILENO) == -1){
 					perror("minish: dup2");

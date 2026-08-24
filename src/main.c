@@ -4,7 +4,9 @@
 
 int main(void)
 {
-	if (isatty(STDIN_FILENO)){ //checking if this is a terminal
+	setup_signals();
+
+	if (isatty(STDIN_FILENO) == 1){ //checking if this is a terminal
 		shell_interactive();
 	}
 	else{

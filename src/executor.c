@@ -74,6 +74,11 @@ void execute_command(char *line){ //execute a command entered by the user
 	}
 
 	if (pid == 0){
+
+		// restoring normal signal behavior for child process
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+
 		if (input_file != NULL){
 			fd = open(input_file, O_RDONLY);
 
